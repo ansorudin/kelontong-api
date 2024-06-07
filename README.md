@@ -14,7 +14,11 @@ To get started with the Kelontong API, follow these steps:
    ```sh
    docker-compose up
 
-3. Run the seed for seeder data
+3. Run migration with Prisma:
+   ```sh
+   npx prisma migrate dev
+
+4. Run the seed for seeder data
    ```sh
    npm run seed
 
