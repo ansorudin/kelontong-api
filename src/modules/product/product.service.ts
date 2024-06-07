@@ -4,7 +4,6 @@ import { PaginationResponse } from "../pagination/types";
 import { PaginationService } from "../pagination/pagination.service";
 import PrismaService from "../prisma/prisma.service";
 import { CreateProductDTO } from "./dto/create-product.dto";
-import ApiError from "../../utils/ApiError";
 import httpStatus from "http-status";
 import { UpdateProductDTO } from "./dto/update-product.dto";
 import { FileService } from "../file/file.service";

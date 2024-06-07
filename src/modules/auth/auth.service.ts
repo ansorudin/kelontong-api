@@ -1,11 +1,11 @@
 import httpStatus from "http-status";
-import ApiError from "../../utils/ApiError";
 import { encryptPassword, isPasswordMatch } from "../../utils/encryption";
 import { LoginDto } from "./dto/login.dto";
 import { User } from "@prisma/client";
 import { RegisterDto } from "./dto/register.dto";
 import PrismaService from "../prisma/prisma.service";
 import { TokenService } from "./token.service";
+import { HttpError } from "../../utils/HttpError";
 
 export class AuthService {
   private prisma;
@@ -24,9 +24,9 @@ export class AuthService {
     });
 
     if (!user || !(await isPasswordMatch(password, user.password as string))) {
-      throw new ApiError(
-        httpStatus.UNAUTHORIZED,
-        "incorrect email or password"
+      throw new HttpError(
+        "incorrect email or password",
+        httpStatus.UNAUTHORIZED
       );
     }
 
@@ -51,7 +51,10 @@ export class AuthService {
     });
 
     if (user) {
-      throw new ApiError(httpStatus.UNPROCESSABLE_ENTITY, "email already used");
+      throw new HttpError(
+        "email already used",
+        httpStatus.UNPROCESSABLE_ENTITY
+      );
     }
 
     const passwordEncrypt = await encryptPassword(password);

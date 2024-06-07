@@ -2,10 +2,10 @@ import { Request, Response, NextFunction } from "express";
 import { ProductService } from "./product.service";
 import { GetProductsDTO } from "./dto/get-products.dto";
 import { FileService } from "../file/file.service";
-import ApiError from "../../utils/ApiError";
 import httpStatus from "http-status";
 import { CreateProductDTO } from "./dto/create-product.dto";
 import { UpdateProductDTO } from "./dto/update-product.dto";
+import { HttpError } from "../../utils/HttpError";
 
 export class ProductController {
   private productService: ProductService;
@@ -43,7 +43,10 @@ export class ProductController {
       const body: CreateProductDTO = req.body as CreateProductDTO;
 
       if (!file) {
-        throw new ApiError(httpStatus.UNPROCESSABLE_ENTITY, "no file uploaded");
+        throw new HttpError(
+          "no file uploaded",
+          httpStatus.UNPROCESSABLE_ENTITY
+        );
       }
 
       const fileUrl = this.fileService.getFileUrl(file.filename);

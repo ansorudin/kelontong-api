@@ -1,9 +1,6 @@
 import express from "express";
 import helmet from "helmet";
 import cors from "cors";
-import passport from "passport";
-import { jwtStrategy } from "./config/passport";
-import ApiError from "./utils/ApiError";
 import httpStatus from "http-status";
 import { errorMiddleware } from "./middleware/errorMiddleware";
 import authRouter from "./modules/auth/auth.router";
@@ -11,6 +8,7 @@ import productCategoryRouter from "./modules/product-category/product-category.r
 import productRouter from "./modules/product/product.router";
 import path from "path";
 import morgan from "morgan";
+import { HttpError } from "./utils/HttpError";
 
 const app = express();
 const port = 9000;
@@ -18,7 +16,7 @@ const port = 9000;
 app.use(express.json());
 
 // set security HTTP headers
-// app.use(helmet());
+app.use(helmet());
 
 // enable cors
 const corsOptions = {
@@ -41,7 +39,7 @@ app.use("/products", productRouter);
 
 app.use(errorMiddleware);
 app.use((req, res, next) => {
-  next(new ApiError(httpStatus.NOT_FOUND, "Not found"));
+  next(new HttpError("Not found", httpStatus.NOT_FOUND));
 });
 
 app.listen(port, () =>

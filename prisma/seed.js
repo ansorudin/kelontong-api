@@ -43,7 +43,8 @@ async function main() {
       width: 5,
       length: 10,
       height: 3,
-      image: "product1.jpg",
+      image:
+        "/file/1717777298287-clark-street-mercantile-P3pI6xzovu0-unsplash.jpg",
       price: 100,
       productCategoryId: category1.id,
     },
@@ -58,7 +59,8 @@ async function main() {
       width: 8,
       length: 12,
       height: 4,
-      image: "product2.jpg",
+      image:
+        "/file/1717775940100-clark-street-mercantile-P3pI6xzovu0-unsplash.jpg",
       price: 150,
       productCategoryId: category2.id,
     },

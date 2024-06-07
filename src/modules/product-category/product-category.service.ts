@@ -2,11 +2,11 @@ import { Prisma, Product, ProductCategory } from "@prisma/client";
 import { PaginationResponse } from "../pagination/types";
 import { PaginationService } from "../pagination/pagination.service";
 import PrismaService from "../prisma/prisma.service";
-import ApiError from "../../utils/ApiError";
 import httpStatus from "http-status";
 import { GetProductCategoriesDTO } from "./dto/get-product-categories.dto";
 import { CreateProductCategoryDTO } from "./dto/create-product-category.dto";
 import { UpdateProductCategoryDTO } from "./dto/update-product-category.dto";
+import { HttpError } from "../../utils/HttpError";
 
 export class ProductCategoryService {
   private paginationService: PaginationService;
@@ -25,9 +25,9 @@ export class ProductCategoryService {
     });
 
     if (productCategory) {
-      throw new ApiError(
-        httpStatus.UNPROCESSABLE_ENTITY,
-        `product category with name ${name} already exists`
+      throw new HttpError(
+        `product category with name ${name} already exists`,
+        httpStatus.UNPROCESSABLE_ENTITY
       );
     }
   }
