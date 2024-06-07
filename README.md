@@ -24,6 +24,7 @@ To start the development server, run:
 
 ```sh
 npm run dev
+```
 
 The server will start at http://localhost:9000 by default but you can change port in env file.
 
